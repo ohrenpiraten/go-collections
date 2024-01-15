@@ -56,14 +56,6 @@ func AnyMatch[T any](collection []T, predicate Predicate[T]) bool {
 	return false
 }
 
-type Predicate[T any] func(q T) bool
-
-func True[T any]() Predicate[T] {
-	return func(t T) bool {
-		return true
-	}
-}
-
 func Contains[T comparable](collection []T, element T) bool {
 	for _, item := range collection {
 		if item == element {
