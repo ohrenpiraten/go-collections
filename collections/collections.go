@@ -9,13 +9,13 @@ func Map[T any, R any](collection []T, mapper func(T) R) (result []R) {
 	return result
 }
 
-func First[T any](collection []T, predicate predicates.Predicate[T]) (result T) {
+func First[T any](collection []T, predicate predicates.Predicate[T]) (result T, found bool) {
 	for _, element := range collection {
 		if predicate(element) {
-			return element
+			return element, true
 		}
 	}
-	return result
+	return result, false
 }
 
 func Filter[T any](collection []T, predicate predicates.Predicate[T]) (result []T) {
