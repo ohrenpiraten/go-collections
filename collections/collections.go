@@ -33,6 +33,15 @@ func FilterValues[K comparable, T any](collection map[K]T, predicate Predicate[T
 	return result
 }
 
+func First[T any](collection []T, predicate Predicate[T]) (result T) {
+	for _, element := range collection {
+		if predicate(element) {
+			return element
+		}
+	}
+	return result
+}
+
 func Filter[T any](collection []T, predicate Predicate[T]) (result []T) {
 	result = make([]T, 0)
 	for _, element := range collection {
