@@ -27,3 +27,12 @@ func FilterValues[K comparable, T any](collection map[K]T, predicate predicates.
 	}
 	return result
 }
+
+func FirstValue[K comparable, T any](dict map[K]T, predicate predicates.Predicate[T]) (result T, found bool) {
+	for _, element := range dict {
+		if predicate(element) {
+			return element, true
+		}
+	}
+	return result, false
+}
