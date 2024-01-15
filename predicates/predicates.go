@@ -1,4 +1,4 @@
-package collections
+package predicates
 
 type Predicate[T any] func(q T) bool
 

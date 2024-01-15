@@ -1,5 +1,7 @@
 package collections
 
+import "github.com/ohrenpiraten/go-collections/predicates"
+
 func Map[T any, R any](collection []T, mapper func(T) R) (result []R) {
 	for _, element := range collection {
 		result = append(result, mapper(element))
@@ -7,33 +9,7 @@ func Map[T any, R any](collection []T, mapper func(T) R) (result []R) {
 	return result
 }
 
-func Values[K comparable, T any](collection map[K]T) (result []T) {
-	result = make([]T, 0)
-	for _, element := range collection {
-		result = append(result, element)
-	}
-	return result
-}
-
-func Keys[K comparable, T any](collection map[K]T) (result []K) {
-	result = make([]K, 0)
-	for key, _ := range collection {
-		result = append(result, key)
-	}
-	return result
-}
-
-func FilterValues[K comparable, T any](collection map[K]T, predicate Predicate[T]) (result []T) {
-	result = make([]T, 0)
-	for _, element := range collection {
-		if predicate(element) {
-			result = append(result, element)
-		}
-	}
-	return result
-}
-
-func First[T any](collection []T, predicate Predicate[T]) (result T) {
+func First[T any](collection []T, predicate predicates.Predicate[T]) (result T) {
 	for _, element := range collection {
 		if predicate(element) {
 			return element
@@ -42,7 +18,7 @@ func First[T any](collection []T, predicate Predicate[T]) (result T) {
 	return result
 }
 
-func Filter[T any](collection []T, predicate Predicate[T]) (result []T) {
+func Filter[T any](collection []T, predicate predicates.Predicate[T]) (result []T) {
 	result = make([]T, 0)
 	for _, element := range collection {
 		if predicate(element) {
@@ -52,11 +28,11 @@ func Filter[T any](collection []T, predicate Predicate[T]) (result []T) {
 	return result
 }
 
-func Count[T any](collection []T, predicate Predicate[T]) int {
+func Count[T any](collection []T, predicate predicates.Predicate[T]) int {
 	return len(Filter(collection, predicate))
 }
 
-func AnyMatch[T any](collection []T, predicate Predicate[T]) bool {
+func AnyMatch[T any](collection []T, predicate predicates.Predicate[T]) bool {
 	for _, element := range collection {
 		if predicate(element) {
 			return true
