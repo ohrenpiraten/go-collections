@@ -3,6 +3,7 @@ package collections
 import "github.com/ohrenpiraten/go-collections/predicates"
 
 func Map[T any, R any](collection []T, mapper func(T) R) (result []R) {
+	result = make([]R, 0)
 	for _, element := range collection {
 		result = append(result, mapper(element))
 	}
