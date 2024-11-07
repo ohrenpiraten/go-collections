@@ -10,6 +10,18 @@ func Map[T any, R any](collection []T, mapper func(T) R) (result []R) {
 	return result
 }
 
+func MapError[T any, R any](collection []T, transform func(T) (R, error)) (result []R, _ error) {
+	result = make([]R, 0)
+	for _, element := range collection {
+		if transformed, err := transform(element); err != nil {
+			return result, err
+		} else {
+			result = append(result, transformed)
+		}
+	}
+	return result, nil
+}
+
 func First[T any](collection []T, predicate predicates.Predicate[T]) (result T, found bool) {
 	for _, element := range collection {
 		if predicate(element) {
